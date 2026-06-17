@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Projetos · Engenharia de Alto Padrão</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Montserrat', sans-serif; background: #0a0a0a; color: #e8e0d0; min-height: 100vh; -webkit-tap-highlight-color: transparent; }
+
+/* ── HERO ── */
+.pf-hero { padding: 4rem 4rem 3.5rem; position: relative; border-bottom: 1px solid #1e1e1e; overflow: hidden; }
+.pf-arch-lines { position: absolute; top: 0; right: 4rem; width: 200px; height: 100%; opacity: 0.07; pointer-events: none; }
+.pf-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: #c9a85c; margin-bottom: 1.75rem; display: flex; align-items: center; gap: 14px; }
+.pf-eyebrow::before { content: ''; display: block; width: 36px; height: 1px; background: #c9a85c; flex-shrink: 0; }
+.pf-headline { font-size: 3rem; font-weight: 300; line-height: 1.15; color: #f5efe3; margin-bottom: 1.5rem; letter-spacing: -0.5px; }
+.pf-headline strong { font-weight: 600; font-style: italic; color: #c9a85c; display: block; }
+.pf-sub { font-size: 13px; font-weight: 400; color: #a0998e; line-height: 1.85; max-width: 520px; margin-bottom: 2.5rem; }
+.pf-cta { display: inline-flex; align-items: center; gap: 10px; background: transparent; border: 1px solid #c9a85c; color: #c9a85c; padding: 14px 28px; font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; transition: all 0.25s; font-family: 'Montserrat', sans-serif; text-decoration: none; }
+.pf-cta:hover { background: #c9a85c; color: #0a0a0a; }
+
+/* ── STATS ── */
+.pf-stats { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid #242424; }
+.pf-stat { padding: 2rem 2.5rem; border-right: 1px solid #242424; }
+.pf-stat:last-child { border-right: none; }
+.pf-stat-num { font-size: 2.2rem; font-weight: 300; color: #f5efe3; line-height: 1; margin-bottom: 8px; }
+.pf-stat-num span { color: #c9a85c; font-weight: 600; }
+.pf-stat-label { font-size: 9px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: #7a7268; }
+
+/* ── SECTIONS ── */
+.pf-section { padding: 3rem 4rem; border-bottom: 1px solid #242424; }
+.pf-sec-header { display: flex; align-items: center; gap: 1.25rem; margin-bottom: 2rem; }
+.pf-sec-title { font-size: 10px; font-weight: 600; letter-spacing: 3.5px; text-transform: uppercase; color: #8a8278; white-space: nowrap; }
+.pf-sec-line { flex: 1; height: 1px; background: #242424; }
+.pf-bim-badge { background: #1e1800; border: 1px solid #5a4800; color: #c9a85c; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; white-space: nowrap; }
+
+/* ── SERVICES ── */
+.pf-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #1e1e1e; }
+.pf-service { background: #0f0f0f; padding: 2rem 1.75rem; }
+.pf-service-icon { width: 38px; height: 38px; border: 1px solid #2e2e2e; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; }
+.pf-service-icon svg { width: 18px; height: 18px; stroke: #c9a85c; fill: none; stroke-width: 1.5; }
+.pf-service-name { font-size: 12px; font-weight: 600; color: #f0e8d8; margin-bottom: 8px; }
+.pf-service-desc { font-size: 12px; font-weight: 400; color: #8a8278; line-height: 1.75; }
+
+/* ── GALLERY ── */
+.gallery-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.75rem; }
+.filter-btn { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; background: transparent; border: 1px solid #333; color: #8a8278; padding: 10px 18px; cursor: pointer; transition: all 0.2s; -webkit-appearance: none; }
+.filter-btn:hover { border-color: #666; color: #c0b8a8; }
+.filter-btn.active { border-color: #c9a85c; color: #c9a85c; background: #1e1800; }
+
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #1e1e1e; }
+
+.gallery-card { background: #0f0f0f; cursor: pointer; display: flex; flex-direction: column; }
+.gallery-img { width: 100%; aspect-ratio: 4/3; background: #141414; overflow: hidden; position: relative; }
+.gallery-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s; }
+.gallery-card:active .gallery-img-placeholder,
+.gallery-card:hover .gallery-img-placeholder { background: #181818; }
+.gallery-img-placeholder svg { width: 28px; height: 28px; }
+.gallery-img-placeholder span { font-size: 8px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #4a4540; }
+.gallery-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+.gallery-card:hover .gallery-img img { transform: scale(1.03); }
+.gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); padding: 1.5rem 1rem 0.75rem; opacity: 0; transition: opacity 0.25s; }
+.gallery-card:hover .gallery-overlay { opacity: 1; }
+.gallery-overlay-tag { font-size: 8px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #c9a85c; }
+
+.gallery-info { padding: 0.875rem 1rem 1rem; }
+.gallery-disciplines { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 6px; }
+.gallery-tag { font-size: 7px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 6px; border: 1px solid #2e2e2e; color: #6a6460; }
+.gallery-tag.estrutural { border-color: #2a3d2a; color: #72b072; }
+.gallery-tag.eletrica   { border-color: #3d3d20; color: #b0b048; }
+.gallery-tag.hidro      { border-color: #1e3540; color: #48a0b8; }
+.gallery-tag.bim        { border-color: #5a4800; color: #c9a85c; }
+.gallery-name { font-size: 12px; font-weight: 500; color: #d8d0c0; line-height: 1.35; margin-bottom: 4px; }
+.gallery-meta { font-size: 10px; font-weight: 400; color: #6a6460; }
+
+/* ── LIGHTBOX ── */
+.lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.97); align-items: flex-end; justify-content: center; }
+.lightbox.open { display: flex; }
+.lightbox-inner { width: 100%; max-width: 860px; max-height: 100vh; background: #111; border-top: 1px solid #2a2a2a; position: relative; display: flex; flex-direction: column; overflow: hidden; }
+.lightbox-close { position: absolute; top: 12px; right: 16px; z-index: 10; background: rgba(0,0,0,0.7); border: 1px solid #333; color: #aaa; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; font-family: 'Montserrat', sans-serif; display: flex; align-items: center; gap: 6px; padding: 8px 14px; }
+.lightbox-close:hover, .lightbox-close:active { color: #c9a85c; border-color: #c9a85c; }
+
+.lightbox-img-wrap { position: relative; flex-shrink: 0; }
+.lightbox-img { width: 100%; aspect-ratio: 16/9; background: #141414; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.lightbox-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lightbox-photo-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(0,0,0,0.65); border: 1px solid #444; color: #c0b8a8; font-size: 18px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; -webkit-appearance: none; }
+.lightbox-photo-btn:active { background: rgba(201,168,92,0.25); border-color: #c9a85c; color: #c9a85c; }
+.lightbox-photo-btn:hover { background: rgba(201,168,92,0.2); border-color: #c9a85c; color: #c9a85c; }
+.lightbox-photo-btn.left { left: 10px; }
+.lightbox-photo-btn.right { right: 10px; }
+.lightbox-photo-count { font-size: 9px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: #6a6460; text-align: center; padding: 8px 0 0; flex-shrink: 0; }
+
+.lightbox-img-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; width: 100%; height: 100%; }
+.lightbox-img-placeholder svg { width: 40px; height: 40px; stroke: #333; fill: none; stroke-width: 1; }
+.lightbox-img-placeholder p { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: #4a4540; }
+
+.lightbox-body { padding: 1.25rem 1.5rem; overflow-y: auto; flex: 1; }
+.lightbox-disciplines { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0.75rem; }
+.lightbox-name { font-size: 1.2rem; font-weight: 300; color: #f0e8d8; margin-bottom: 0.5rem; line-height: 1.3; }
+.lightbox-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+.lightbox-meta-item { font-size: 11px; font-weight: 400; color: #7a7268; }
+.lightbox-meta-item strong { color: #c0b8a8; font-weight: 600; }
+.lightbox-desc { font-size: 12px; font-weight: 400; color: #8a8278; line-height: 1.8; border-top: 1px solid #242424; padding-top: 0.875rem; }
+
+.lightbox-nav { display: flex; gap: 1px; background: #1e1e1e; border-top: 1px solid #1e1e1e; flex-shrink: 0; }
+.lightbox-nav-btn { flex: 1; padding: 1rem; background: #0f0f0f; border: none; color: #7a7268; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; font-family: 'Montserrat', sans-serif; transition: all 0.2s; min-height: 52px; }
+.lightbox-nav-btn:hover, .lightbox-nav-btn:active { background: #141414; color: #c9a85c; }
+
+/* ── DIFERENCIAIS ── */
+.pf-differentials { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem 2.5rem; }
+.pf-diff { display: flex; gap: 1rem; align-items: flex-start; }
+.pf-diff-num { font-size: 10px; font-weight: 700; color: #c9a85c; opacity: 0.5; min-width: 22px; letter-spacing: 1px; padding-top: 2px; }
+.pf-diff-title { font-size: 13px; font-weight: 600; color: #f0e8d8; margin-bottom: 6px; }
+.pf-diff-desc { font-size: 12px; font-weight: 400; color: #8a8278; line-height: 1.75; }
+
+/* ── FOOTER ── */
+.pf-footer { padding: 1.75rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #1e1e1e; }
+.pf-footer-brand { font-size: 12px; font-weight: 700; color: #4a4540; letter-spacing: 3px; text-transform: uppercase; }
+.pf-footer-right { text-align: right; }
+.pf-footer-online { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: #c9a85c; opacity: 0.7; display: flex; align-items: center; gap: 7px; justify-content: flex-end; margin-bottom: 4px; }
+.pf-footer-online::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #c9a85c; flex-shrink: 0; }
+.pf-footer-sub { font-size: 10px; font-weight: 400; color: #4a4540; letter-spacing: 0.5px; }
+
+.upload-hint { background: #0d0d0d; border: 1px dashed #2a2a2a; padding: 1.25rem; text-align: center; margin-top: 1px; }
+.upload-hint p { font-size: 12px; font-weight: 400; color: #6a6460; }
+.upload-hint strong { color: #c9a85c; font-weight: 600; }
+
+/* ════════════════════════════
+   MOBILE  ≤ 768px
+════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Hero */
+  .pf-hero { padding: 3rem 1.5rem 2.5rem; }
+  .pf-arch-lines { display: none; }
+  .pf-eyebrow { font-size: 9px; letter-spacing: 2.5px; margin-bottom: 1.25rem; }
+  .pf-headline { font-size: 2rem; margin-bottom: 1.25rem; }
+  .pf-sub { font-size: 13px; margin-bottom: 2rem; }
+  .pf-cta { width: 100%; justify-content: center; padding: 16px; font-size: 10px; }
+
+  /* Stats — empilha em coluna */
+  .pf-stats { grid-template-columns: 1fr; border-bottom: 1px solid #242424; }
+  .pf-stat { padding: 1.5rem 1.5rem; border-right: none; border-bottom: 1px solid #242424; display: flex; align-items: center; gap: 1.25rem; }
+  .pf-stat:last-child { border-bottom: none; }
+  .pf-stat-num { font-size: 2rem; margin-bottom: 0; }
+  .pf-stat-label { font-size: 9px; }
+
+  /* Section padding */
+  .pf-section { padding: 2rem 1.5rem; }
+  .pf-sec-title { font-size: 9px; letter-spacing: 2.5px; }
+
+  /* Disciplinas — coluna única */
+  .pf-services { grid-template-columns: 1fr; }
+  .pf-service { padding: 1.5rem 1.25rem; display: flex; gap: 1rem; align-items: flex-start; }
+  .pf-service-icon { margin-bottom: 0; flex-shrink: 0; }
+  .pf-service-name { font-size: 13px; }
+  .pf-service-desc { font-size: 12px; }
+
+  /* Filtros — scroll horizontal */
+  .gallery-filters { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; gap: 6px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .gallery-filters::-webkit-scrollbar { display: none; }
+  .filter-btn { flex-shrink: 0; padding: 10px 16px; font-size: 9px; }
+
+  /* Galeria — 2 colunas no mobile */
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-info { padding: 0.75rem 0.875rem 0.875rem; }
+  .gallery-name { font-size: 11px; }
+  .gallery-meta { font-size: 9px; }
+
+  /* Lightbox — ocupa tela toda, scroll interno */
+  .lightbox { align-items: flex-end; padding: 0; }
+  .lightbox-inner { max-height: 92vh; border-radius: 12px 12px 0 0; border-top: 1px solid #2a2a2a; }
+  .lightbox-close { top: 10px; right: 12px; padding: 7px 12px; font-size: 9px; }
+  .lightbox-img { aspect-ratio: 4/3; }
+  .lightbox-photo-btn { width: 40px; height: 40px; font-size: 16px; }
+  .lightbox-body { padding: 1rem 1.25rem; }
+  .lightbox-name { font-size: 1.1rem; }
+  .lightbox-desc { font-size: 12px; }
+  .lightbox-nav-btn { font-size: 9px; letter-spacing: 1px; padding: 0.875rem 0.5rem; }
+
+  /* Diferenciais — coluna única */
+  .pf-differentials { grid-template-columns: 1fr; gap: 1.5rem; }
+
+  /* Footer */
+  .pf-footer { padding: 1.5rem; flex-direction: column; gap: 1rem; align-items: flex-start; }
+  .pf-footer-right { text-align: left; }
+  .pf-footer-online { justify-content: flex-start; }
+}
+
+/* ════════════════════════════
+   EXTRA PEQUENO  ≤ 400px
+════════════════════════════ */
+@media (max-width: 400px) {
+  .pf-headline { font-size: 1.75rem; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .pf-stat-num { font-size: 1.75rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="pf-hero">
+  <svg class="pf-arch-lines" viewBox="0 0 200 500" preserveAspectRatio="none">
+    <line x1="0" y1="0" x2="200" y2="500" stroke="#b99552" stroke-width="0.5"/>
+    <line x1="50" y1="0" x2="200" y2="340" stroke="#b99552" stroke-width="0.5"/>
+    <line x1="100" y1="0" x2="200" y2="180" stroke="#b99552" stroke-width="0.5"/>
+    <line x1="0" y1="100" x2="150" y2="500" stroke="#b99552" stroke-width="0.5"/>
+    <line x1="0" y1="200" x2="80" y2="500" stroke="#b99552" stroke-width="0.5"/>
+    <rect x="20" y="30" width="70" height="45" fill="none" stroke="#b99552" stroke-width="0.5"/>
+    <rect x="110" y="150" width="55" height="90" fill="none" stroke="#b99552" stroke-width="0.5"/>
+  </svg>
+  <div class="pf-eyebrow">HR Projetos · Engenharia de Alto Padrão</div>
+  <h1 class="pf-headline">Precisão técnica.<br><strong>Excelência projetual.</strong></h1>
+  <p class="pf-sub">Parceiro estratégico de escritórios de arquitetura para o desenvolvimento integrado de projetos de engenharia em BIM — estrutural, elétrica e hidrossanitário — com atendimento 100% online para todo o Brasil.</p>
+  <a class="pf-cta" href="mailto:contato@hrprojetos.com.br">&#8594; &nbsp;Fale com a HR Projetos</a>
+</div>
+
+<!-- STATS -->
+<div class="pf-stats">
+  <div class="pf-stat">
+    <div class="pf-stat-num">R$<span class="counter" data-target="20" data-suffix="M+">20M+</span></div>
+    <div class="pf-stat-label">Em obras projetadas</div>
+  </div>
+  <div class="pf-stat">
+    <div class="pf-stat-num"><span class="counter" data-target="100" data-suffix="k m²">100k m²</span></div>
+    <div class="pf-stat-label">Área projetada</div>
+  </div>
+  <div class="pf-stat">
+    <div class="pf-stat-num"><span class="counter" data-target="300" data-suffix="+">300+</span></div>
+    <div class="pf-stat-label">Projetos entregues</div>
+  </div>
+</div>
+
+<!-- DISCIPLINAS -->
+<div class="pf-section">
+  <div class="pf-sec-header">
+    <div class="pf-sec-title">Disciplinas</div>
+    <div class="pf-sec-line"></div>
+    <div class="pf-bim-badge">100% BIM</div>
+  </div>
+  <div class="pf-services">
+    <div class="pf-service">
+      <div class="pf-service-icon"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-4h6v4"/></svg></div>
+      <div>
+        <div class="pf-service-name">Estrutural em Concreto Armado</div>
+        <div class="pf-service-desc">Dimensionamento e detalhamento estrutural completo, integrado ao modelo BIM com compatibilização em tempo real.</div>
+      </div>
+    </div>
+    <div class="pf-service">
+      <div class="pf-service-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <div>
+        <div class="pf-service-name">Instalações Elétricas</div>
+        <div class="pf-service-desc">Projeto elétrico de alto padrão com automação, iluminação técnica e infraestrutura para sistemas especiais.</div>
+      </div>
+    </div>
+    <div class="pf-service">
+      <div class="pf-service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+      <div>
+        <div class="pf-service-name">Hidrossanitário</div>
+        <div class="pf-service-desc">Projeto hidráulico e sanitário para residências de alto padrão, piscinas, spas e sistemas de reaproveitamento.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GALERIA -->
+<div class="pf-section">
+  <div class="pf-sec-header">
+    <div class="pf-sec-title">Projetos em destaque</div>
+    <div class="pf-sec-line"></div>
+  </div>
+  <div class="gallery-filters">
+    <button class="filter-btn active" data-filter="todos">Todos</button>
+    <button class="filter-btn" data-filter="estrutural">Estrutural</button>
+    <button class="filter-btn" data-filter="eletrica">Elétrica</button>
+    <button class="filter-btn" data-filter="hidro">Hidrossanitário</button>
+  </div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+  <div class="upload-hint">
+    <p>Projetos com fotos em breve. <strong>Aguarde as imagens reais</strong> de cada projeto.</p>
+  </div>
+</div>
+
+<!-- DIFERENCIAIS -->
+<div class="pf-section">
+  <div class="pf-sec-header">
+    <div class="pf-sec-title">Por que a HR Projetos?</div>
+    <div class="pf-sec-line"></div>
+  </div>
+  <div class="pf-differentials">
+    <div class="pf-diff"><div class="pf-diff-num">01</div><div><div class="pf-diff-title">Projetos 100% em BIM</div><div class="pf-diff-desc">Modelagem integrada que elimina interferências entre disciplinas antes da obra, reduzindo retrabalho e garantindo precisão na execução.</div></div></div>
+    <div class="pf-diff"><div class="pf-diff-num">02</div><div><div class="pf-diff-title">Compatibilização integrada</div><div class="pf-diff-desc">As três disciplinas são desenvolvidas simultaneamente e compatibilizadas, preservando a integridade do projeto arquitetônico.</div></div></div>
+    <div class="pf-diff"><div class="pf-diff-num">03</div><div><div class="pf-diff-title">Atendimento online · Brasil todo</div><div class="pf-diff-desc">Escritório 100% digital, atendendo arquitetos de todas as regiões do país com comunicação ágil e entrega de projetos em nuvem.</div></div></div>
+    <div class="pf-diff"><div class="pf-diff-num">04</div><div><div class="pf-diff-title">Experiência em alto padrão</div><div class="pf-diff-desc">Mais de 300 projetos entregues com foco em residências sofisticadas, prazos cumpridos e suporte técnico em obra.</div></div></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="pf-footer">
+  <div class="pf-footer-brand">HR Projetos</div>
+  <div class="pf-footer-right">
+    <div class="pf-footer-online">Atendimento online</div>
+    <div class="pf-footer-sub">Todo o Brasil · BIM · Alto Padrão</div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lightboxClose">✕ Fechar</button>
+    <div class="lightbox-img-wrap">
+      <button class="lightbox-photo-btn left" id="lightboxPhotoPrev">&#8592;</button>
+      <div class="lightbox-img" id="lightboxImg"></div>
+      <button class="lightbox-photo-btn right" id="lightboxPhotoNext">&#8594;</button>
+    </div>
+    <div class="lightbox-photo-count" id="lightboxPhotoCount"></div>
+    <div class="lightbox-body">
+      <div class="lightbox-disciplines" id="lightboxDisciplines"></div>
+      <div class="lightbox-name" id="lightboxName"></div>
+      <div class="lightbox-meta" id="lightboxMeta"></div>
+      <div class="lightbox-desc" id="lightboxDesc"></div>
+    </div>
+    <div class="lightbox-nav">
+      <button class="lightbox-nav-btn" id="lightboxPrev">&#8592; Anterior</button>
+      <button class="lightbox-nav-btn" id="lightboxNext">Próximo &#8594;</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const projects = [
+  { name: "Residencial Jaboatão",    area: "—", pavimentos: "—", valor: "—", disciplines: ["estrutural","eletrica","hidro"],    desc: "Projeto completo de engenharia residencial desenvolvido em BIM, com estrutura em concreto armado, instalações elétricas e projeto hidrossanitário integrados e compatibilizados.", imgs: { estrutural: ["jab_estrutural_1.jpg"], eletrica: ["jab_eletrica_1.jpg"], hidro: ["jab_hidro_1.jpg"] } },
+  { name: "Casa Marechal Deodoro",   area: "—", pavimentos: "—", valor: "—", disciplines: ["hidro"],                           desc: "Projeto hidrossanitário desenvolvido em BIM para residência de alto padrão, com soluções técnicas integradas ao projeto arquitetônico.",                                         imgs: { hidro: ["mar_hidro_1.jpg"] } },
+  { name: "Residência Santa Izabel", area: "—", pavimentos: "—", valor: "—", disciplines: ["estrutural"],                      desc: "Projeto estrutural em concreto armado desenvolvido em BIM, com detalhamento completo e compatibilização com as demais disciplinas do projeto.",                            imgs: { estrutural: ["iza_estrutural_1.jpg"] } },
+  { name: "Residência R | A",        area: "—", pavimentos: "—", valor: "—", disciplines: ["estrutural","eletrica","hidro"],    desc: "Projeto completo de engenharia residencial desenvolvido em BIM, com estrutura em concreto armado, instalações elétricas e projeto hidrossanitário integrados e compatibilizados.", imgs: { estrutural: ["ra_estrutural_1.jpg"], eletrica: ["ra_eletrica_1.jpg"], hidro: ["ra_hidro_1.jpg"] } },
+  { name: "Casa BSB",                area: "—", pavimentos: "—", valor: "—", disciplines: ["estrutural","eletrica","hidro"],    desc: "Projeto completo de engenharia residencial desenvolvido em BIM, com estrutura em concreto armado, instalações elétricas e projeto hidrossanitário integrados e compatibilizados.", imgs: { estrutural: ["bsb_estrutural_1.jpg"], eletrica: ["bsb_eletrica_1.jpg"], hidro: ["bsb_hidro_1.jpg"] } },
+  { name: "Mercado Matureia",        area: "—", pavimentos: "—", valor: "—", disciplines: ["estrutural"],                      desc: "Projeto estrutural em concreto armado desenvolvido em BIM para edificação comercial, com dimensionamento e detalhamento completo.",                                          imgs: { estrutural: ["mat_estrutural_1.jpg"] } }
+];
+
+const labels = { estrutural: "Estrutural", eletrica: "Elétrica", hidro: "Hidrossanitário" };
+const placeholderIcons = {
+  estrutural: `<svg viewBox="0 0 24 24" width="28" height="28" stroke="#4a4540" fill="none" stroke-width="1"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-4h6v4"/></svg>`,
+  eletrica:   `<svg viewBox="0 0 24 24" width="28" height="28" stroke="#4a4540" fill="none" stroke-width="1"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+  hidro:      `<svg viewBox="0 0 24 24" width="28" height="28" stroke="#4a4540" fill="none" stroke-width="1"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>`
+};
+
+let currentFilter = "todos";
+let currentIndex = 0;
+let photoIndex = 0;
+let visible = [];
+
+function getVisible() {
+  return currentFilter === "todos" ? projects : projects.filter(p => p.disciplines.includes(currentFilter));
+}
+
+function tagsHtml(discs) {
+  return discs.map(d => `<span class="gallery-tag ${d}">${labels[d]}</span>`).join("") + `<span class="gallery-tag bim">BIM</span>`;
+}
+
+function allPhotos(p) {
+  const photos = [];
+  p.disciplines.forEach(d => {
+    const imgs = (p.imgs && p.imgs[d]) ? p.imgs[d] : [];
+    if (imgs.length > 0) imgs.forEach(src => photos.push({ src, disc: d }));
+    else photos.push({ src: null, disc: d });
+  });
+  return photos;
+}
+
+function coverPhoto(p) {
+  for (const d of p.disciplines) {
+    if (p.imgs && p.imgs[d] && p.imgs[d].length > 0) return { src: p.imgs[d][0], disc: d };
+  }
+  return { src: null, disc: p.disciplines[0] };
+}
+
+function renderGallery() {
+  visible = getVisible();
+  const grid = document.getElementById("galleryGrid");
+  grid.innerHTML = "";
+  if (!visible.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;padding:3rem;text-align:center;font-size:12px;font-weight:400;color:#6a6460;letter-spacing:1px;">Nenhum projeto para esta disciplina.</div>`;
+    return;
+  }
+  visible.forEach((p, i) => {
+    const card = document.createElement("div");
+    card.className = "gallery-card";
+    const cover = coverPhoto(p);
+    const icon = placeholderIcons[cover.disc] || placeholderIcons.estrutural;
+    const imgHtml = cover.src
+      ? `<img src="${cover.src}" alt="${p.name}"><div class="gallery-overlay"><div class="gallery-overlay-tag">Ver detalhes</div></div>`
+      : `<div class="gallery-img-placeholder">${icon}<span>${labels[cover.disc]}</span></div><div class="gallery-overlay"><div class="gallery-overlay-tag">Ver detalhes</div></div>`;
+    card.innerHTML = `
+      <div class="gallery-img">${imgHtml}</div>
+      <div class="gallery-info">
+        <div class="gallery-disciplines">${tagsHtml(p.disciplines)}</div>
+        <div class="gallery-name">${p.name}</div>
+        <div class="gallery-meta">${p.disciplines.map(d => labels[d]).join(" · ")}</div>
+      </div>`;
+    card.addEventListener("click", () => openLightbox(i));
+    grid.appendChild(card);
+  });
+}
+
+function openLightbox(i) {
+  currentIndex = i;
+  photoIndex = 0;
+  updateLightbox();
+  document.getElementById("lightbox").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeLightbox() {
+  document.getElementById("lightbox").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function updateLightbox() {
+  const p = visible[currentIndex];
+  const photos = allPhotos(p);
+  const photo = photos[photoIndex] || { src: null, disc: p.disciplines[0] };
+
+  document.getElementById("lightboxImg").innerHTML = photo.src
+    ? `<img src="${photo.src}" alt="${p.name}">`
+    : `<div class="lightbox-img-placeholder"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><p>Foto do projeto</p></div>`;
+
+  const totalPhotos = photos.length;
+  document.getElementById("lightboxPhotoCount").textContent =
+    totalPhotos > 1 ? `${labels[photo.disc]}  ·  ${photoIndex + 1} / ${totalPhotos}` : (labels[photo.disc] || "");
+
+  document.getElementById("lightboxName").textContent = p.name;
+  document.getElementById("lightboxDisciplines").innerHTML = tagsHtml(p.disciplines);
+
+  const metaParts = [];
+  if (p.area && p.area !== "—") metaParts.push(`<div class="lightbox-meta-item"><strong>${p.area}</strong> · Área</div>`);
+  if (p.pavimentos && p.pavimentos !== "—") metaParts.push(`<div class="lightbox-meta-item"><strong>${p.pavimentos}</strong></div>`);
+  if (p.valor && p.valor !== "—") metaParts.push(`<div class="lightbox-meta-item"><strong>${p.valor}</strong> · Obra</div>`);
+  document.getElementById("lightboxMeta").innerHTML = metaParts.join("") || "";
+  document.getElementById("lightboxDesc").textContent = p.desc;
+
+  const photoPrev = document.getElementById("lightboxPhotoPrev");
+  const photoNext = document.getElementById("lightboxPhotoNext");
+  photoPrev.style.opacity = photoIndex === 0 ? "0.2" : "1";
+  photoNext.style.opacity = photoIndex === totalPhotos - 1 ? "0.2" : "1";
+  photoPrev.style.pointerEvents = photoIndex === 0 ? "none" : "auto";
+  photoNext.style.pointerEvents = photoIndex === totalPhotos - 1 ? "none" : "auto";
+
+  document.getElementById("lightboxPrev").style.opacity = currentIndex === 0 ? "0.2" : "1";
+  document.getElementById("lightboxNext").style.opacity = currentIndex === visible.length - 1 ? "0.2" : "1";
+  document.getElementById("lightboxPrev").style.pointerEvents = currentIndex === 0 ? "none" : "auto";
+  document.getElementById("lightboxNext").style.pointerEvents = currentIndex === visible.length - 1 ? "none" : "auto";
+}
+
+// Touch swipe no lightbox
+let touchStartX = 0;
+document.getElementById("lightboxImg").addEventListener("touchstart", e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+document.getElementById("lightboxImg").addEventListener("touchend", e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) < 40) return;
+  const photos = allPhotos(visible[currentIndex]);
+  if (diff > 0) {
+    if (photoIndex < photos.length - 1) { photoIndex++; updateLightbox(); }
+    else if (currentIndex < visible.length - 1) { currentIndex++; photoIndex = 0; updateLightbox(); }
+  } else {
+    if (photoIndex > 0) { photoIndex--; updateLightbox(); }
+    else if (currentIndex > 0) { currentIndex--; photoIndex = 0; updateLightbox(); }
+  }
+});
+
+// Eventos
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentFilter = btn.dataset.filter;
+    renderGallery();
+  });
+});
+document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
+document.getElementById("lightbox").addEventListener("click", e => { if (e.target.id === "lightbox") closeLightbox(); });
+document.getElementById("lightboxPhotoPrev").addEventListener("click", () => { if (photoIndex > 0) { photoIndex--; updateLightbox(); } });
+document.getElementById("lightboxPhotoNext").addEventListener("click", () => {
+  const photos = allPhotos(visible[currentIndex]);
+  if (photoIndex < photos.length - 1) { photoIndex++; updateLightbox(); }
+});
+document.getElementById("lightboxPrev").addEventListener("click", () => {
+  if (currentIndex > 0) { currentIndex--; photoIndex = 0; updateLightbox(); }
+});
+document.getElementById("lightboxNext").addEventListener("click", () => {
+  if (currentIndex < visible.length - 1) { currentIndex++; photoIndex = 0; updateLightbox(); }
+});
+document.addEventListener("keydown", e => {
+  if (!document.getElementById("lightbox").classList.contains("open")) return;
+  if (e.key === "Escape") closeLightbox();
+  if (e.key === "ArrowLeft") {
+    const photos = allPhotos(visible[currentIndex]);
+    if (photoIndex > 0) { photoIndex--; updateLightbox(); }
+    else if (currentIndex > 0) { currentIndex--; photoIndex = 0; updateLightbox(); }
+  }
+  if (e.key === "ArrowRight") {
+    const photos = allPhotos(visible[currentIndex]);
+    if (photoIndex < photos.length - 1) { photoIndex++; updateLightbox(); }
+    else if (currentIndex < visible.length - 1) { currentIndex++; photoIndex = 0; updateLightbox(); }
+  }
+});
+
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target), suffix = el.dataset.suffix || '';
+  let c = 0; const step = Math.ceil(target / 40);
+  const t = setInterval(() => { c = Math.min(c + step, target); el.textContent = c + suffix; if (c >= target) clearInterval(t); }, 40);
+}
+document.querySelectorAll('.counter').forEach(el => setTimeout(() => animateCounter(el), 600));
+
+renderGallery();
+</script>
+</body>
+</html>
